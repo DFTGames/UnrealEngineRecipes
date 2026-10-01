@@ -1,16 +1,20 @@
 # =============================================================================
 # Unreal Engine Project .gitignore
+# Each recipe is an Unreal project in its own top-level folder, so project
+# level paths are anchored as /*/<name>/ to avoid catching Content or Source
+# folders that happen to share a name.
 # =============================================================================
 
 # ----- Unreal Engine Generated Directories ----------------------------------
+# Unanchored on purpose: these also cover Plugins/**/Binaries and Intermediate.
 Binaries/
-Build/
 DerivedDataCache/
 Intermediate/
 Saved/
+/*/Build/
 
 # ----- Unreal Engine Generated Files ----------------------------------------
-*.vc.db
+*.VC.db
 *.opensdf
 *.opendb
 *.sdf
@@ -23,21 +27,27 @@ Saved/
 .vs/
 .vsconfig
 *.sln
+*.slnx
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
-ipch/
-x64/
-x86/
-Debug/
-Release/
 UpgradeLog.htm
+
+# ----- Visual Studio Code ---------------------------------------------------
+.vscode/
+*.code-workspace
 
 # ----- JetBrains Rider ------------------------------------------------------
 .idea/
 *.DotSettings.user
 
+# ----- Xcode ----------------------------------------------------------------
+*.xcworkspace
+*.xcodeproj
+
 # ----- Compiled Source ------------------------------------------------------
+# If a recipe vendors third-party libraries, add an exception such as
+# !*/Source/ThirdParty/**/*.lib
 *.obj
 *.pch
 *.ilk
@@ -46,25 +56,16 @@ UpgradeLog.htm
 *.pdb
 *.idb
 
-# ----- Plugins (third-party; keep your own source) --------------------------
-# Uncomment if you do NOT want to track plugin Binaries/Intermediate:
-# Plugins/*/Binaries/
-# Plugins/*/Intermediate/
-
 # ----- Packaging / Distribution ---------------------------------------------
-Releases/
-Packages/
+/*/Releases/
+/*/Packages/
 *.pak
 *.ucas
 *.utoc
 *.sig
 
 # ----- Shader Cache ---------------------------------------------------------
-ShaderCache/
-
-# ----- Crash Reports --------------------------------------------------------
-Saved/Crashes/
-Saved/Logs/
+/*/ShaderCache/
 
 # ----- OS Artefacts ---------------------------------------------------------
 .DS_Store
@@ -78,8 +79,13 @@ ehthumbs.db
 *.temp
 *~
 
-# Claude Code session files (keep .mcp.json tracked)
+# ----- Unreal MCP reference (generated per machine by Generate-MCPReference.ps1)
+mcp_reference/
+
+# ----- AI assistant files ---------------------------------------------------
 CLAUDE.md
 .claude/
 .remember/
 docs/
+.mcp.json
+Gameplay/AGENTS.md
